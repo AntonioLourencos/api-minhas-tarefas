@@ -1,3 +1,6 @@
+import { config } from "dotenv";
+config();
+
 const {
   DATABSE_TYPE,
   DATABASE_HOST,

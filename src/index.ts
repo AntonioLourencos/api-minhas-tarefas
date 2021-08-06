@@ -8,6 +8,7 @@ const APP = Express();
 const PORT = process.env.PORT!;
 
 APP.use(Express.json());
+APP.use(Express.urlencoded({ extended: true }));
 APP.use(Cors());
 
 APP.use("/api", RoutesPublic);
