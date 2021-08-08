@@ -1,37 +1,48 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BeforeInsert,
-  BeforeUpdate,
-} from "typeorm";
-import Bcrypt from "bcrypt";
+import { Schema, model } from "mongoose";
+import IUser from "@interfaces/models/IUsers";
+import bcrypt from "bcrypt";
 
-@Entity("users")
-class User {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+const UserShema: Schema<IUser> = new Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    select: false,
+  },
+  resetToken: {
+    type: String,
+    select: false,
+  },
+  expireToken: {
+    type: Date,
+    select: false,
+  },
+  createAt: {
+    type: Date,
+    required: true,
+    default: Date.now(),
+    select: false,
+  },
+});
 
-  @Column()
-  username: String;
-
-  @Column()
-  email: String;
-
-  @Column()
-  password: String;
-
-  @Column({ nullable: true })
-  token_reset: String;
-
-  @Column()
-  createAt: Date;
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  hashPassowrd() {
-    this.password = Bcrypt.hashSync(String(this.password), 10);
+UserShema.pre("save", async function (next) {
+  if (!this.password) {
+    next();
   }
-}
+  const hash = await bcrypt.hash(this?.password!, 8);
+  this.password = hash;
+  next();
+});
 
-export default User;
+export default model<IUser>("Profiles", UserShema);
