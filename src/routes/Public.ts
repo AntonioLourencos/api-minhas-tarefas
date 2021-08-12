@@ -1,4 +1,4 @@
-import AuthenticationController from "src/controllers/Authentication";
+import AuthenticationController from "../controllers/Authentication";
 import { Router } from "express";
 
 const RoutesPublic = Router();

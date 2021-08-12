@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 import Bcrypt from "bcrypt";
 
 import { v4 as uuid } from "uuid";
-import generateToken from "src/utils/helpers/GenerateToken";
+import generateToken from "../utils/helpers/GenerateToken";
 
-import { AlreadyExists, NotFound, WrongPassword } from "@errors/Authentication";
-import { DefaultError, MissingArguments } from "@errors/GlobalRequest";
-import { NotSend } from "@errors/Services";
+import { AlreadyExists, NotFound, WrongPassword } from "../utils/messages/errors/Authentication";
+import { DefaultError, MissingArguments } from "../utils/messages/errors/GlobalRequest";
+import { NotSend } from "../utils/messages/errors/Services";
 
-import User from "@models/User";
-import IBody from "@interfaces/IBody";
-import Transporter from "src/services/mail";
+import User from "../models/User"
+import IBody from "../utils/interfaces/IBody";
+import Transporter from "../services/mail";
 
 const AuthenticationController = {
   async SignUp(req: Request, res: Response) {
