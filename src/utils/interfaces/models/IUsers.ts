@@ -1,10 +1,10 @@
 import { Document } from "mongoose";
 
 export default interface IUser extends Document {
-  username: string;
-  email: string;
-  password?: string;
-  resetToken?: string;
-  expireToken?: Date;
-  createAt: Date;
+    username: string;
+    email: string;
+    password?: string;
+    resetToken?: string;
+    expireToken?: Date;
+    createAt: Date;
 }

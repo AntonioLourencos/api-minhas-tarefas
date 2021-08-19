@@ -1,10 +1,12 @@
 import AuthenticationController from "../controllers/Authentication";
 import { Router } from "express";
 
-const RoutesPublic = Router();
+const PublicRoutes = Router();
 
-RoutesPublic.post("/signUp", AuthenticationController.SignUp);
-RoutesPublic.post("/signIn", AuthenticationController.SignIn);
-RoutesPublic.post("/recoverPassword", AuthenticationController.RecoverPassword);
+PublicRoutes.post("/signUp", AuthenticationController.SignUp);
+PublicRoutes.post("/signIn", AuthenticationController.SignIn);
+PublicRoutes.post("/recoverAccount", AuthenticationController.RecoverAccount);
+PublicRoutes.post("/resetAccountPassword", AuthenticationController.ResetAccountPassword);
 
-export default RoutesPublic;
+
+export default PublicRoutes;
