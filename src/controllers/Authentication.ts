@@ -1,23 +1,23 @@
-import { Request, Response } from "express";
-import Bcrypt from "bcrypt";
-import { v4 as uuid } from "uuid";
-import generateToken from "../utils/helpers/GenerateToken";
+import { Request, Response } from 'express';
+import Bcrypt from 'bcrypt';
+import { v4 as uuid } from 'uuid';
+import generateToken from '../utils/helpers/GenerateToken';
 import {
     UserNotRequestChangePassword,
     UserTimeInvalid,
     AlreadyExists,
     NotFound,
     WrongPassword,
-} from "../utils/messages/errors/Authentication";
+} from '../utils/messages/errors/Authentication';
 import {
     DefaultError,
     MissingArguments,
-} from "../utils/messages/errors/GlobalRequest";
-import { NotSend } from "../utils/messages/errors/Services";
-import User from "../models/User";
-import IBody from "../utils/interfaces/IBody";
-import IQuery from "../utils/interfaces/IQuery";
-import Transporter from "../services/mail";
+} from '../utils/messages/errors/GlobalRequest';
+import { NotSend } from '../utils/messages/errors/Services';
+import User from '../models/User';
+import IBody from '../utils/interfaces/IBody';
+import IQuery from '../utils/interfaces/IQuery';
+import Transporter from '../services/mail';
 
 const AuthenticationController = {
     async SignUp(req: Request, res: Response) {
@@ -66,8 +66,8 @@ const AuthenticationController = {
 
         try {
             const user = await User.findOne({ email }).select([
-                "+password",
-                "-__v",
+                '+password',
+                '-__v',
             ]);
 
             if (!user) {
@@ -91,24 +91,24 @@ const AuthenticationController = {
         }
     },
     async RecoverAccount(req: Request, res: Response) {
-        const { email }: IBody = req.body;
-        email.toLowerCase();
-
+        const { email }: IQuery = req.query;
+        email!.toLowerCase();
+        
         if (!email) {
             return res.status(400).send({ message: MissingArguments });
         }
-
+        
         try {
             const user = await User.findOne({ email }).select([
-                "+resetToken",
-                "+expireToken",
+                '+resetToken',
+                '+expireToken',
             ]);
 
             if (!user) {
                 return res.status(404).send({ message: NotFound });
             }
 
-            let resetToken: string = "";
+            let resetToken: string = '';
             let expireToken: Date = new Date();
             expireToken.setHours(expireToken.getHours() + 1);
 
@@ -118,8 +118,8 @@ const AuthenticationController = {
             }
             const config = {
                 to: email,
-                subject: "Minhas tarefas - Recuperação de conta",
-                template: "/auth/forgot_password",
+                subject: 'Minhas tarefas - Recuperação de conta',
+                template: '/auth/forgot_password',
                 context: { resetToken },
             };
 
@@ -152,9 +152,9 @@ const AuthenticationController = {
 
         try {
             const user = await User.findOne({ email }).select([
-                "+password",
-                "+resetToken",
-                "+expireToken",
+                '+password',
+                '+resetToken',
+                '+expireToken',
             ]);
 
             if (!user) {
