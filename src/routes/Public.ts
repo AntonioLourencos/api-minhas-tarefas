@@ -5,8 +5,8 @@ const PublicRoutes = Router();
 
 PublicRoutes.post("/signUp", AuthenticationController.SignUp);
 PublicRoutes.post("/signIn", AuthenticationController.SignIn);
-PublicRoutes.post("/recoverAccount", AuthenticationController.RecoverAccount);
-PublicRoutes.post("/resetAccountPassword", AuthenticationController.ResetAccountPassword);
+PublicRoutes.post("/recoverAccount/:email?", AuthenticationController.RecoverAccount);
+PublicRoutes.post("/resetAccountPassword/:token?", AuthenticationController.ResetAccountPassword);
 
 
 export default PublicRoutes;
