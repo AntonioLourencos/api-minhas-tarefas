@@ -29,10 +29,27 @@ const USER_ID = “user-id”
 
 As rotas são dividas em duas partes, sendo as públicas, que não precisam utilizar nenhuma configuração de indentificação, sendo assim você não precisará passar nenhum header ou parametro. Nas rotas privadas, será nescessário informar, quem é o usuário com dois argumntos, sendo eles: <br/>
 
+### Publicas
+
+-   [SignUp](#signup---method-post)
+-   [SignIn](#signin---method-post)
+-   [Recover Account](#recover-account---container)
+-   [Reset Account Password](#recover-account---container)
+
+### Privadas
+
+-   [New](#signUp)
+-   [Find](#ignIn)
+-   [Find One](#RecoverAccount)
+-   [Edit](#ResetAccountPassword)
+-   [Edit One](#ResetAccountPassword)
+-   [Delete](#ResetAccountPassword)
+-   [Delete One](#ResetAccountPassword)
+
 ```js
 
-const USER_TOKEN = “user-token”
-const USER_ID = “user-id”
+    const USER_TOKEN = “user-token”
+    const USER_ID = “user-id”
 
 ```
 
@@ -75,21 +92,9 @@ function newRequest() {
 }
 ```
 
-### Publicas
+## Rotas
 
--   [SignUp](#signUp)
--   [SignIn](#SignIn)
--   [Recover Account](#RecoverAccount)
--   [Reset Account Password](#ResetAccountPassword)
-
-### Privadas
-
--   [SignUp](#signUp)
--   [SignIn](#ignIn)
--   [Recover Account](#RecoverAccount)
--   [Reset Account Password](#ResetAccountPassword)
-
-## SignUp - Method (**POST**)
+### SignUp - Method (**POST**)
 
 ```js
 // Valor de entrada
@@ -99,30 +104,30 @@ const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
     body: {
-        username: 'John Doe',
-        email: 'JohnDoe@Doe.com',
-        password: '**********',
+        username: 'John Doe', // Required
+        email: 'JohnDoe@Doe.com', // Required
+        password: '**********', // Required
     },
 };
 ```
 
-```js
+```json
 // Expectativa do valor de saída
 
-const BodyResponse = {
-    authentication: {
-        user: {
-            createAt: '****-**-*****:**:**.*****',
-            _id: 'USER_ID',
-            email: 'antoniomarcosstorm@gmail.com',
-            username: 'John Doe',
+{
+    "authentication": {
+        "user": {
+            "createAt": "DATE",
+            "_id": "USER_ID",
+            "email": "JohnDoe@Doe.com",
+            "username": "John Doe"
         },
-        token: 'USER_TOKEN',
-    },
-};
+        "token": "USER_TOKEN"
+    }
+}
 ```
 
-## SignIn - Method (**POST**)
+### SignIn - Method (**POST**)
 
 ```js
 // Valor de entrada
@@ -131,33 +136,33 @@ const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
     body: {
-        email: 'JohnDoe@Doe.com',
-        password: '**********',
+        email: 'JohnDoe@Doe.com', // Obrigatório
+        password: '**********', // Obrigatório
     },
 };
 ```
 
-```js
+```json
 // Expectativa do valor de saída
 
-const BodyResponse = {
-    authentication: {
-        user: {
-            createAt: '****-**-*****:**:**.*****',
-            _id: 'USER_ID',
-            email: 'antoniomarcosstorm@gmail.com',
-            username: 'John Doe',
+{
+    "authentication": {
+        "user": {
+            "createAt": "DATE",
+            "_id": "USER_ID",
+            "email": "JohnDoe@Doe.com",
+            "username": "John Doe"
         },
-        token: 'USER_TOKEN',
-    },
-};
+        "token": "USER_TOKEN"
+    }
+}
 ```
 
-## Recover Account - Container
+### Recover Account - Container
 
 Para a recuperação da conta, será enviado um email automático, para o usuário no qual conterá um sequência numérica denominada TOKEN, nos métodos seguintes.
 
-### Recover Account - Method (**POST**)
+##### Recover Account - Method (**POST**)
 
 ```js
 // Valor de entrada
@@ -167,7 +172,7 @@ const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 const RequestConfig = {
     headers: {
         query: {
-            email: 'JohnDoe@Doe.com',
+            email: 'JohnDoe@Doe.com', // Obrigatório
         },
     },
 };
@@ -179,7 +184,7 @@ Expectativa do valor de saída
 A resposta esperada é código 204 do protocolo HTTP e um email enviado para o usuário.
 ```
 
-### Reset Account Password - Method (**POST**)
+#### Reset Account Password - Method (**POST**)
 
 ```js
 // Valor de entrada
@@ -189,12 +194,12 @@ const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 const RequestConfig = {
     headers: {
         query: {
-            token: 'TOKEN',
+            token: 'TOKEN', // Obrigatório
         },
     },
     body: {
-        email: 'JohnDoe@Doe.com',
-        password: '**********', // O password pedido aqui é referente a nova senha do usuário.
+        email: 'JohnDoe@Doe.com', // Obrigatório
+        password: '**********', // Obrigatório, o password pedido aqui é referente a nova senha do usuário.
     },
 };
 ```
@@ -205,4 +210,137 @@ Expectativa do valor de saída
 A resposta esperada é código 204 do protocolo HTTP.
 
 Também é indicado que após isso o cliente seja redirecionado para a página de login.
+```
+
+### New - Method (**POST**)
+
+```js
+// Valor de entrada
+const path = 'new';
+const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
+
+const RequestConfig = {
+    headers: {
+        Authorization: 'Authorization', // Obrigatório
+        query: {
+            userID: 'userID', // Obrigatório
+        },
+    },
+    body: {
+        title: 'jonDoe - Clean House', // Obrigatório
+        description: '...', // Opcional
+        priority: '0 ou 1 ou 2', // Opcional
+        StartedAt: 'DATE', // Opcional
+        FinishAt: 'DATE', // Opcional
+    },
+};
+```
+
+```json
+// Expectativa do valor de saída
+
+{
+    "todo": {
+        "description": "Not have description yet",
+        "priority": 0,
+        "StartedAt": "DATE",
+        "_id": "ID",
+        "title": "jonDoe - Clean House",
+        "__v": 0
+    }
+}
+```
+
+### Find - Container
+
+Cada tarefa possui um identificação, nomeada na api de **"id"**
+
+#### Find One Method (**GET**)
+
+```js
+const path = 'findOne';
+const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
+
+const RequestConfig = {
+    headers: {
+        Authorization: 'Authorization', // Obrigatório
+        query: {
+            userID: 'userID', // Obrigatório
+            id: 'id', // Obrigatório
+        },
+    },
+};
+```
+
+```json
+// Expectativa do valor de saída
+
+{
+    "todo": {
+        "description": "???",
+        "priority": "???",
+        "StartedAt": "???",
+        "_id": "???",
+        "title": "???",
+        "StartedAt": "???",
+        "FinishAt": "???",
+        "__v": 0
+    }
+}
+```
+
+#### Find Method (**GET**)
+
+```js
+const path = 'find';
+const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
+
+const RequestConfig = {
+    headers: {
+        Authorization: 'Authorization', // Obrigatório
+        query: {
+            userID: 'userID', // Obrigatório
+        },
+    },
+};
+```
+
+```json
+// Expectativa do valor de saída
+
+{
+    "todo": [
+        {
+            "description": "???",
+            "priority": "???",
+            "StartedAt": "???",
+            "_id": "???",
+            "title": "???",
+            "StartedAt": "???",
+            "FinishAt": "???",
+            "__v": 0
+        },
+        {
+            "description": "???",
+            "priority": "???",
+            "StartedAt": "???",
+            "_id": "???",
+            "title": "???",
+            "StartedAt": "???",
+            "FinishAt": "???",
+            "__v": 0
+        },
+        {
+            "description": "???",
+            "priority": "???",
+            "StartedAt": "???",
+            "_id": "???",
+            "title": "???",
+            "StartedAt": "???",
+            "FinishAt": "???",
+            "__v": 0
+        }
+        // ...
+    ]
+}
 ```
