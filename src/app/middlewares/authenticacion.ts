@@ -1,11 +1,7 @@
-import { config } from "dotenv";
-import { Request, Response, NextFunction } from "express";
-import JWT from "jsonwebtoken";
-import {
-    TokenNotProvided,
-    TokenMalformed,
-    TokenInvalid,
-} from "../utils/messages/errors/Authentication";
+import { config } from 'dotenv';
+import { Request, Response, NextFunction } from 'express';
+import JWT from 'jsonwebtoken';
+import { TokenNotProvided, TokenMalformed, TokenInvalid } from '@/utils/messages/errors/Authentication';
 
 const MiddleAuth = (req: Request, res: Response, next: NextFunction) => {
     config();
@@ -16,9 +12,9 @@ const MiddleAuth = (req: Request, res: Response, next: NextFunction) => {
     if (!JWT_REQUEST) {
         return res.status(401).send({ message: TokenNotProvided });
     }
-    const token = JWT_REQUEST!.split(" ");
+    const token = JWT_REQUEST!.split(' ');
 
-    if (!(token[0].toLowerCase() === "bearer")) {
+    if (!(token[0].toLowerCase() === 'bearer')) {
         return res.status(401).send({ message: TokenMalformed });
     }
 

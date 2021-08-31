@@ -1,6 +1,6 @@
 import { Router } from "express";
-import MiddleAuth from "../middlewares/authenticacion";
-import TodoController from "../controllers/Todo";
+import MiddleAuth from "@/middlewares/authenticacion";
+import TodoController from "@/controllers/Todo";
 const PrivateRoutes = Router();
 
 PrivateRoutes.use(MiddleAuth);

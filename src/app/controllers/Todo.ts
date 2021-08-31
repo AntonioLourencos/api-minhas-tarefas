@@ -1,23 +1,17 @@
-import { Request, Response } from "express";
-import { v4 as uuid } from "uuid";
-import { NotFound } from "../utils/messages/errors/Authentication";
-import {
-    DefaultError,
-    MissingArguments,
-} from "../utils/messages/errors/GlobalRequest";
-import { NotContent } from "./../utils/messages/errors/ToDo";
-
-import { NotSend } from "../utils/messages/errors/Services";
-import User from "../models/User";
-import Todo from "../models/ToDo";
-import IBody from "../utils/interfaces/IBody";
-import IQuery from "../utils/interfaces/IQuery";
+import { Request, Response } from 'express';
+import { v4 as uuid } from 'uuid';
+import { NotFound } from '@/utils/messages/errors/Authentication';
+import { DefaultError, MissingArguments } from '@/utils/messages/errors/GlobalRequest';
+import { NotContent } from '@/utils/messages/errors/ToDo';
+import User from '@/models/User';
+import Todo from '@/models/ToDo';
+import IBody from '@/utils/interfaces/IBody';
+import IQuery from '@/utils/interfaces/IQuery';
 
 const TodoController = {
     async New(req: Request, res: Response) {
         const { userID }: IQuery = req.query;
-        const { title, description, priority, StartedAt, FinishAt } =
-            req.body as IBody;
+        const { title, description, priority, StartedAt, FinishAt } = req.body as IBody;
 
         if (!(userID || title)) {
             return res.status(400).send({ message: MissingArguments });
@@ -65,8 +59,8 @@ const TodoController = {
 
         try {
             const todo = await Todo.find({
-                "createdBy._id": userID,
-            }).select(["-createdBy", "-createAt", "-__v"]);
+                'createdBy._id': userID,
+            }).select(['-createdBy', '-createAt', '-__v']);
 
             if (!todo) {
                 return res.status(404).send({ message: NotContent });
@@ -87,7 +81,7 @@ const TodoController = {
         try {
             const todo = await Todo.findOne({
                 _id: id,
-            }).select(["-createdBy", "-createAt", "-__v"]);
+            }).select(['-createdBy', '-createAt', '-__v']);
 
             if (!todo) {
                 return res.status(404).send({ message: NotContent });

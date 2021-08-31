@@ -1,20 +1,27 @@
 {
-  "compilerOptions": {
-    "target": "ES2019",
-    "module": "commonjs",
-    "lib": ["ES6"],
-    "allowJs": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "baseUrl": ".",
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "commonjs",
+        "lib": ["ES6"],
+        "allowJs": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "baseUrl": ".",
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@/utils/*": ["src/utils/*"],
+            "@/services/*": ["src/services/*"],
+            "@/controllers/*": ["src/app/controllers/*"],
+            "@/middlewares/*": ["src/app/middlewares/*"],
+            "@/models/*": ["src/app/models/*"]
+        }
+    }
 }
