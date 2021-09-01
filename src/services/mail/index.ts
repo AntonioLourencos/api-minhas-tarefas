@@ -6,7 +6,7 @@ import path from 'path';
 config();
 const { STMP_HOST, STMP_PORT, STMP_SECURE, STMP_EMAIL, STMP_PASS } = process.env;
 
-const Transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo> = nodemailer.createTransport({
+const Transporter = nodemailer.createTransport({
     host: STMP_HOST,
     port: Number.parseInt(STMP_SECURE!),
     secure: Boolean(!STMP_PORT),

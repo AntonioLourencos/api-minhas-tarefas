@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import IUser from '@utils/interfaces/models/IToDo';
+import IUser from '@/utils/interfaces/models/IUsers';
 import bcrypt from 'bcrypt';
 
-const UserShema: Schema<IUser> = new Schema({
+const UserShema: Schema<IUser> = new Schema<IUser>({
     _id: {
         type: String,
         required: true,

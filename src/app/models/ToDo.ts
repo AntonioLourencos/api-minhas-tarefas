@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import IToDo from '@utils/interfaces/models/IToDo';
+import IToDo from '@/utils/interfaces/models/IToDo';
 
-const ToDoShema: Schema<IToDo> = new Schema({
+const ToDoShema: Schema<IToDo> = new Schema<IToDo>({
     _id: {
         type: String,
         required: true,
