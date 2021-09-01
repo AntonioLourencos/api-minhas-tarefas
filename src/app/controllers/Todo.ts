@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
+import extend from 'extend';
 import { NotFound } from '@/utils/messages/errors/Authentication';
 import { DefaultError, MissingArguments } from '@/utils/messages/errors/GlobalRequest';
-import { NotContent } from '@/utils/messages/errors/ToDo';
+import { NotContent, ErrorOnSave } from '@/utils/messages/errors/ToDo';
 import User from '@/models/User';
 import Todo from '@/models/ToDo';
 import IBody from '@/utils/interfaces/IBody';
@@ -11,7 +12,7 @@ import IQuery from '@/utils/interfaces/IQuery';
 const TodoController = {
     async New(req: Request, res: Response) {
         const { userID }: IQuery = req.query;
-        const { title, description, priority, StartedAt, FinishAt } = req.body as IBody;
+        const { title, description, priority, startedAt, finishAt } = req.body as IBody;
 
         if (!(userID || title)) {
             return res.status(400).send({ message: MissingArguments });
@@ -34,8 +35,8 @@ const TodoController = {
                 title,
                 description,
                 priority,
-                StartedAt,
-                FinishAt,
+                startedAt,
+                finishAt,
                 createAt: new Date(),
             });
 
@@ -120,6 +121,33 @@ const TodoController = {
             await Todo.deleteOne({ _id: id });
 
             return res.sendStatus(204);
+        } catch (error) {
+            return res.status(400).send({ message: DefaultError });
+        }
+    },
+    async editOne(req: Request, res: Response) {
+        const { id }: IQuery = req.query;
+
+        if (!(id || req.body)) {
+            return res.status(400).send({ message: MissingArguments });
+        }
+
+        try {
+            let todo = await Todo.findOne({ _id: id }).select(['-createdBy', '-createAt', '-__v']);
+
+            if (!todo) {
+                return res.status(404).send({ message: NotContent });
+            }
+
+            todo = extend(todo, req.body);
+
+            todo?.save(function (err, updatedtodo) {
+                if (err) {
+                    return res.status(400).send({ message: ErrorOnSave });
+                }
+
+                return res.status(200).send({ updatedtodo });
+            });
         } catch (error) {
             return res.status(400).send({ message: DefaultError });
         }

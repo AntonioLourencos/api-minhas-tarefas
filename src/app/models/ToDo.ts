@@ -34,12 +34,12 @@ const ToDoShema: Schema<IToDo> = new Schema<IToDo>({
         min: 0,
         max: 3,
     },
-    StartedAt: {
+    startedAt: {
         type: Date,
         default: Date.now(),
     },
-    FinishAt: {
-        type: Date || String,
+    finishAt: {
+        type: String || Date,
         default: 'Not have a finish date',
     },
     createAt: {

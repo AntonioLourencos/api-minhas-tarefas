@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose';
 
 export default interface IToDo extends Document {
     _id: string;
@@ -10,7 +10,7 @@ export default interface IToDo extends Document {
     title: string;
     description?: string;
     priority?: number;
-    StartedAt?: Date;
-    FinishAt?: Date | string;
+    startedAt?: Date;
+    finishAt?: Date | string;
     createAt?: Date;
 }
