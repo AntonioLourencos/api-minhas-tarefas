@@ -1,23 +1,14 @@
 import { Request, Response } from 'express';
 import Bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
-import generateToken from '../utils/helpers/GenerateToken';
-import {
-    UserNotRequestChangePassword,
-    UserTimeInvalid,
-    AlreadyExists,
-    NotFound,
-    WrongPassword,
-} from '../utils/messages/errors/Authentication';
-import {
-    DefaultError,
-    MissingArguments,
-} from '../utils/messages/errors/GlobalRequest';
-import { NotSend } from '../utils/messages/errors/Services';
-import User from '../models/User';
-import IBody from '../utils/interfaces/IBody';
-import IQuery from '../utils/interfaces/IQuery';
-import Transporter from '../services/mail';
+import generateToken from '@utils/helpers/GenerateToken';
+import { UserNotRequestChangePassword, UserTimeInvalid, AlreadyExists, NotFound, WrongPassword } from '@utils/messages/errors/Authentication';
+import { DefaultError, MissingArguments } from '@utils/messages/errors/GlobalRequest';
+import { NotSend } from '@utils/messages/errors/Services';
+import User from '@models/User';
+import IBody from '@utils/interfaces/IBody';
+import IQuery from '@utils/interfaces/IQuery';
+import Transporter from '@services/mail';
 
 const AuthenticationController = {
     async SignUp(req: Request, res: Response) {
@@ -65,10 +56,7 @@ const AuthenticationController = {
         }
 
         try {
-            const user = await User.findOne({ email }).select([
-                '+password',
-                '-__v',
-            ]);
+            const user = await User.findOne({ email }).select(['+password', '-__v']);
 
             if (!user) {
                 return res.status(404).send({ message: NotFound });
@@ -93,16 +81,13 @@ const AuthenticationController = {
     async RecoverAccount(req: Request, res: Response) {
         const { email }: IQuery = req.query;
         email!.toLowerCase();
-        
+
         if (!email) {
             return res.status(400).send({ message: MissingArguments });
         }
-        
+
         try {
-            const user = await User.findOne({ email }).select([
-                '+resetToken',
-                '+expireToken',
-            ]);
+            const user = await User.findOne({ email }).select(['+resetToken', '+expireToken']);
 
             if (!user) {
                 return res.status(404).send({ message: NotFound });
@@ -151,20 +136,14 @@ const AuthenticationController = {
         }
 
         try {
-            const user = await User.findOne({ email }).select([
-                '+password',
-                '+resetToken',
-                '+expireToken',
-            ]);
+            const user = await User.findOne({ email }).select(['+password', '+resetToken', '+expireToken']);
 
             if (!user) {
                 return res.status(404).send({ message: NotFound });
             }
 
             if (!(user?.resetToken! || user?.expireToken!)) {
-                return res
-                    .status(400)
-                    .send({ message: UserNotRequestChangePassword });
+                return res.status(400).send({ message: UserNotRequestChangePassword });
             }
 
             const currentTime: Date = new Date();

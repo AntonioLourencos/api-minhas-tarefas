@@ -1,20 +1,32 @@
 {
-  "compilerOptions": {
-    "target": "ES2019",
-    "module": "commonjs",
-    "lib": ["ES6"],
-    "allowJs": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "baseUrl": ".",
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "compilerOptions": {
+        "target": "ES2019",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "lib": ["ES6"],
+        "allowJs": true,
+        "noImplicitThis": true,
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "sourceMap": true,
+        "strictPropertyInitialization": false,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "baseUrl": "src",
+        "paths": {
+            "@utils/*": ["utils/*"],
+            "@services/*": ["services/*"],
+            "@controllers/*": ["app/controllers/*"],
+            "@middlewares/*": ["app/middlewares/*"],
+            "@models/*": ["app/models/*"]
+        }
+    },
+    "include": ["./src/**/*.ts"],
+    "exclude": ["./node_modules/*", "dist"]
 }

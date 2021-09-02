@@ -5,6 +5,6 @@ export default interface IBody {
     title: string;
     description: string;
     priority: number;
-    StartedAt: Date;
-    FinishAt: Date;
+    startedAt: Date;
+    finishAt: Date;
 }

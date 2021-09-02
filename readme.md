@@ -33,18 +33,16 @@ As rotas são dividas em duas partes, sendo as públicas, que não precisam util
 
 -   [SignUp](#signup---method-post)
 -   [SignIn](#signin---method-post)
--   [Recover Account](#recover-account---container)
--   [Reset Account Password](#recover-account---container)
+-   [Recover Account](#recover-account---method-post)
+-   [Reset Account Password](#reset-account-password---method-post)
 
 ### Privadas
 
--   [New](#signUp)
--   [Find](#ignIn)
--   [Find One](#RecoverAccount)
--   [Edit](#ResetAccountPassword)
--   [Edit One](#ResetAccountPassword)
--   [Delete](#ResetAccountPassword)
--   [Delete One](#ResetAccountPassword)
+-   [New](#new---method-post)
+-   [Find](#find-method-get)
+-   [Find One](#find-one-method-get)
+-   [Edit One](#edit-one---methodput)
+-   [Delete](#delete---methoddelete)
 
 ```js
 
@@ -216,7 +214,7 @@ Também é indicado que após isso o cliente seja redirecionado para a página d
 
 ```js
 // Valor de entrada
-const path = 'new';
+const path = 'todo/new';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
@@ -258,7 +256,7 @@ Cada tarefa possui um identificação, nomeada na api de **"id"**
 #### Find One Method (**GET**)
 
 ```js
-const path = 'findOne';
+const path = 'todo/findOne';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
@@ -292,7 +290,7 @@ const RequestConfig = {
 #### Find Method (**GET**)
 
 ```js
-const path = 'find';
+const path = 'todo/find';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
@@ -340,7 +338,78 @@ const RequestConfig = {
             "FinishAt": "???",
             "__v": 0
         }
-        // ...
     ]
 }
+```
+
+### Edit One - Method(**PUT**)
+
+```js
+const path = 'todo/editOne';
+const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
+
+const RequestConfig = {
+    headers: {
+        Authorization: 'Authorization', // Obrigatório
+        query: {
+            userID: 'userID', // Obrigatório
+            id: 'ID', // Obrigatório
+        },
+        body: {
+            title: 'jonDoe - Clean House',
+            description: '...',
+            priority: '0 ou 1 ou 2',
+            StartedAt: 'DATE',
+            FinishAt: 'DATE',
+        },
+    },
+};
+```
+
+```json
+// Expectativa do valor de saída
+
+{
+    "todo": {
+        "description": "???",
+        "priority": "???",
+        "StartedAt": "???",
+        "_id": "???",
+        "title": "???",
+        "StartedAt": "???",
+        "FinishAt": "???",
+        "__v": 0
+    }
+}
+```
+
+### Delete - Method(**DELETE**)
+
+```js
+const path = 'todo/delete';
+const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
+
+const RequestConfig = {
+    headers: {
+        Authorization: 'Authorization', // Obrigatório
+        query: {
+            userID: 'userID', // Obrigatório
+            id: 'ID', // Obrigatório
+
+            // Para deletar mais de um replique o parametro id.
+            id: 'ID', // Opcional
+            id: 'ID', // Opcional
+            id: 'ID', // Opcional
+            // ...
+        },
+    },
+};
+```
+
+```
+Expectativa do valor de saída
+
+A resposta esperada é código 204 do protocolo HTTP.
+
+Também é indicado que após isso o seja apagado no frontend também ou realizar a chamada a api.
 ```

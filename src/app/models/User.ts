@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
-import IUser from "../utils/interfaces/models/IUsers";
-import bcrypt from "bcrypt";
+import { Schema, model } from 'mongoose';
+import IUser from '@utils/interfaces/models/IUsers';
+import bcrypt from 'bcrypt';
 
-const UserShema: Schema<IUser> = new Schema({
+const UserShema: Schema<IUser> = new Schema<IUser>({
     _id: {
         type: String,
         required: true,
@@ -36,7 +36,7 @@ const UserShema: Schema<IUser> = new Schema({
     },
 });
 
-UserShema.pre("save", async function (next) {
+UserShema.pre('save', async function (next) {
     if (!this.password) {
         next();
     }
@@ -45,4 +45,4 @@ UserShema.pre("save", async function (next) {
     next();
 });
 
-export default model<IUser>("Profiles", UserShema);
+export default model<IUser>('Profiles', UserShema);

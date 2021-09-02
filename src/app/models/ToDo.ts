@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose";
-import IToDo from "../utils/interfaces/models/IToDo";
+import { Schema, model } from 'mongoose';
+import IToDo from '@utils/interfaces/models/IToDo';
 
-const ToDoShema: Schema<IToDo> = new Schema({
+const ToDoShema: Schema<IToDo> = new Schema<IToDo>({
     _id: {
         type: String,
         required: true,
@@ -26,7 +26,7 @@ const ToDoShema: Schema<IToDo> = new Schema({
     },
     description: {
         type: String,
-        default: "Not have description yet",
+        default: 'Not have description yet',
     },
     priority: {
         type: Number,
@@ -34,13 +34,13 @@ const ToDoShema: Schema<IToDo> = new Schema({
         min: 0,
         max: 3,
     },
-    StartedAt: {
+    startedAt: {
         type: Date,
         default: Date.now(),
     },
-    FinishAt: {
-        type: Date || String,
-        default: "Not have a finish date",
+    finishAt: {
+        type: String || Date,
+        default: 'Not have a finish date',
     },
     createAt: {
         type: Date,
@@ -50,4 +50,4 @@ const ToDoShema: Schema<IToDo> = new Schema({
     },
 });
 
-export default model<IToDo>("ToDo", ToDoShema);
+export default model<IToDo>('ToDo', ToDoShema);
