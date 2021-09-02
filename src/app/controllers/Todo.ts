@@ -3,11 +3,12 @@ import { v4 as uuid } from 'uuid';
 import extend from 'extend';
 import { NotFound } from '@/utils/messages/errors/Authentication';
 import { DefaultError, MissingArguments } from '@/utils/messages/errors/GlobalRequest';
-import { NotContent, ErrorOnSave } from '@/utils/messages/errors/ToDo';
+import { NotContent, ErrorOnSave, DeleteInvalidId } from '@/utils/messages/errors/ToDo';
 import User from '@/models/User';
 import Todo from '@/models/ToDo';
 import IBody from '@/utils/interfaces/IBody';
 import IQuery from '@/utils/interfaces/IQuery';
+import checkUUID from '@/utils/helpers/checkUUID';
 
 const TodoController = {
     async New(req: Request, res: Response) {
@@ -79,6 +80,10 @@ const TodoController = {
             return res.status(400).send({ message: MissingArguments });
         }
 
+        if (id!.constructor !== String) {
+            return res.status(400).send({ message: DefaultError });
+        }
+
         try {
             const todo = await Todo.findOne({
                 _id: id,
@@ -94,23 +99,6 @@ const TodoController = {
         }
     },
     async Delete(req: Request, res: Response) {
-        const { ids }: IQuery = req.query;
-
-        if (!ids) {
-            return res.status(400).send({ message: MissingArguments });
-        }
-
-        try {
-            ids.forEach(async (_id: string) => {
-                await Todo.deleteMany({ _id });
-            });
-
-            return res.sendStatus(204);
-        } catch (error) {
-            return res.status(400).send({ message: DefaultError });
-        }
-    },
-    async DeleteOne(req: Request, res: Response) {
         const { id }: IQuery = req.query;
 
         if (!id) {
@@ -118,10 +106,40 @@ const TodoController = {
         }
 
         try {
-            await Todo.deleteOne({ _id: id });
+            if (typeof id === 'string') {
+                if (checkUUID(id)) {
+                    const todo = await Todo.findOneAndDelete({ _id: id });
+                    if (!todo) {
+                        throw "can't delete";
+                    }
+                } else {
+                    throw 'invalid id';
+                }
+            }
+
+            if (typeof id === 'object') {
+                for (const _id of id) {
+                    if (checkUUID(_id)) {
+                        const todo = await Todo.findOneAndDelete({ _id });
+                        if (!todo) {
+                            throw "can't delete";
+                        }
+                    } else {
+                        throw 'invalid id';
+                    }
+                }
+            }
 
             return res.sendStatus(204);
         } catch (error) {
+            if (error === "can't delete") {
+                return res.status(400).send({ message: NotContent });
+            }
+
+            if (error === 'invalid id') {
+                return res.status(400).send({ message: DeleteInvalidId });
+            }
+
             return res.status(400).send({ message: DefaultError });
         }
     },
@@ -130,6 +148,10 @@ const TodoController = {
 
         if (!(id || req.body)) {
             return res.status(400).send({ message: MissingArguments });
+        }
+
+        if (id!.constructor !== String) {
+            return res.status(400).send({ message: DefaultError });
         }
 
         try {
