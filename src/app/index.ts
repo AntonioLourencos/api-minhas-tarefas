@@ -1,8 +1,9 @@
+import '../utils/config/module.path.config';
 import Express from 'express';
 import Cors from 'cors';
 import PublicRoutes from './routes/Public';
 import PrivateRoutes from './routes/Private';
-import connectMongo from '@/services/database';
+import connectMongo from '@services/database';
 
 const APP = Express();
 

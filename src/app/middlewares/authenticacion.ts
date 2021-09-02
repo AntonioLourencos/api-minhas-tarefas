@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 import { Request, Response, NextFunction } from 'express';
 import JWT from 'jsonwebtoken';
-import { TokenNotProvided, TokenMalformed, TokenInvalid } from '@/utils/messages/errors/Authentication';
+import { TokenNotProvided, TokenMalformed, TokenInvalid } from '@utils/messages/errors/Authentication';
 
 const MiddleAuth = (req: Request, res: Response, next: NextFunction) => {
     config();

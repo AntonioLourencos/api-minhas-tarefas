@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 import extend from 'extend';
-import { NotFound } from '@/utils/messages/errors/Authentication';
-import { DefaultError, MissingArguments } from '@/utils/messages/errors/GlobalRequest';
-import { NotContent, ErrorOnSave, DeleteInvalidId } from '@/utils/messages/errors/ToDo';
-import User from '@/models/User';
-import Todo from '@/models/ToDo';
-import IBody from '@/utils/interfaces/IBody';
-import IQuery from '@/utils/interfaces/IQuery';
-import checkUUID from '@/utils/helpers/checkUUID';
+import { NotFound } from '@utils/messages/errors/Authentication';
+import { DefaultError, MissingArguments } from '@utils/messages/errors/GlobalRequest';
+import { NotContent, ErrorOnSave, DeleteInvalidId } from '@utils/messages/errors/ToDo';
+import User from '@models/User';
+import Todo from '@models/ToDo';
+import IBody from '@utils/interfaces/IBody';
+import IQuery from '@utils/interfaces/IQuery';
+import checkUUID from '@utils/helpers/checkUUID';
 
 const TodoController = {
     async New(req: Request, res: Response) {
