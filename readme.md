@@ -33,16 +33,16 @@ As rotas são dividas em duas partes, sendo as públicas, que não precisam util
 
 -   [SignUp](#signup---method-post)
 -   [SignIn](#signin---method-post)
--   [Recover Account](#recover-account---container)
--   [Reset Account Password](#recover-account---container)
+-   [Recover Account](#recover-account---method-post)
+-   [Reset Account Password](#reset-account-password---method-post)
 
 ### Privadas
 
--   [New](#signUp)
--   [Find](#ignIn)
--   [Find One](#RecoverAccount)
--   [Edit One](#Edit-One)
--   [Delete](#Delete)
+-   [New](#new---method-post)
+-   [Find](#find-method-get)
+-   [Find One](#find-one-method-get)
+-   [Edit One](#edit-one---methodput)
+-   [Delete](#delete---methoddelete)
 
 ```js
 
