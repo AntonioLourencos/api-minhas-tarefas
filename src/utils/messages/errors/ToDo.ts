@@ -11,3 +11,8 @@ export const ErrorOnSave: IError = {
     type: 'Save',
     message: "We can't save your modifications",
 };
+export const DeleteInvalidId: IError = {
+    service: 'ToDo',
+    type: 'Delete',
+    message: "We can't fund the tarefa, because the id is invalid.",
+};
