@@ -366,6 +366,23 @@ const RequestConfig = {
 };
 ```
 
+```json
+// Expectativa do valor de saída
+
+{
+    "todo": {
+        "description": "???",
+        "priority": "???",
+        "StartedAt": "???",
+        "_id": "???",
+        "title": "???",
+        "StartedAt": "???",
+        "FinishAt": "???",
+        "__v": 0
+    }
+}
+```
+
 ### Delete - Method(**DELETE**)
 
 ```js
@@ -387,4 +404,12 @@ const RequestConfig = {
         },
     },
 };
+```
+
+```
+Expectativa do valor de saída
+
+A resposta esperada é código 204 do protocolo HTTP.
+
+Também é indicado que após isso o seja apagado no frontend também ou realizar a chamada a api.
 ```
