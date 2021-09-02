@@ -12,7 +12,6 @@ PrivateRoutes.get('/findOne/:userID?/:id?', TodoController.FindOne);
 
 PrivateRoutes.put('/editOne/:userID?/:id?', TodoController.editOne);
 
-PrivateRoutes.delete('/delete/:userID?/:ids?', TodoController.Delete);
-PrivateRoutes.delete('/deleteOne/:userID?/:id?', TodoController.DeleteOne);
+PrivateRoutes.delete('/delete/:userID?/:id?', TodoController.Delete);
 
 export default PrivateRoutes;
