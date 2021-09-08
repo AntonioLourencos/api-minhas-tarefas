@@ -242,7 +242,7 @@ const RequestConfig = {
     "todo": {
         "title": "jonDoe - Clean House",
         "description": "Not have description yet",
-        "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
+        "state": "feito" | "fazendo" | "feito",
         "priority": 0,
         "StartedAt": "DATE",
         "_id": "ID",
@@ -280,7 +280,7 @@ const RequestConfig = {
         "_id": "???",
         "title": "???",
         "description": "???",
-        "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
+        "state": "feito" | "fazendo" | "feito",
         "priority": "???",
         "StartedAt": "???",
         "FinishAt": "???",
@@ -308,35 +308,39 @@ const RequestConfig = {
 // Expectativa do valor de saída
 
 {
-    "todo": [
-                {
-                    "_id": "???",
-                    "title": "???",
-                    "description": "???",
-                    "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
-                    "priority": "???",
-                    "StartedAt": "???",
-                    "FinishAt": "???",
-                },
-                {
-                    "_id": "???",
-                    "title": "???",
-                    "description": "???",
-                    "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
-                    "priority": "???",
-                    "StartedAt": "???",
-                    "FinishAt": "???",
-                },
-                {
-                    "_id": "???",
-                    "title": "???",
-                    "description": "???",
-                    "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
-                    "priority": "???",
-                    "StartedAt": "???",
-                    "FinishAt": "???",
-                }
-            ]
+    "fazer": [
+        {
+            "_id": "???",
+            "title": "???",
+            "description": "???",
+            "state": "fazer",
+            "priority": "???",
+            "StartedAt": "???",
+            "FinishAt": "???"
+        }
+    ],
+    "fazendo": [
+        {
+            "_id": "???",
+            "title": "???",
+            "description": "???",
+            "state": "fazendo",
+            "priority": "???",
+            "StartedAt": "???",
+            "FinishAt": "???"
+        }
+    ],
+    "feito": [
+        {
+            "_id": "???",
+            "title": "???",
+            "description": "???",
+            "state": "feito",
+            "priority": "???",
+            "StartedAt": "???",
+            "FinishAt": "???"
+        }
+    ]
 }
 ```
 
@@ -373,6 +377,7 @@ const RequestConfig = {
         "_id": "???",
         "title": "???",
         "description": "???",
+        "state": "feito" | "fazendo" | "feito",
         "priority": "???",
         "FinishAt": "???",
         "StartedAt": "???"
