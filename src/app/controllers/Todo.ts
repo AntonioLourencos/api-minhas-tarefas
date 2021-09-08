@@ -9,6 +9,7 @@ import Todo from '@models/ToDo';
 import IBody from '@utils/interfaces/IBody';
 import IQuery from '@utils/interfaces/IQuery';
 import checkUUID from '@utils/helpers/checkUUID';
+import { fileURLToPath } from 'url';
 
 const TodoController = {
     async New(req: Request, res: Response) {
@@ -73,7 +74,13 @@ const TodoController = {
                 return res.status(404).send({ message: NotContent });
             }
 
-            return res.status(200).send({ todo });
+            const FilterTarefas = {
+                fazer: todo.filter((tarefa) => tarefa.state.includes('fazer')),
+                fazendo: todo.filter((tarefa) => tarefa.state.includes('fazendo')),
+                feito: todo.filter((tarefa) => tarefa.state.includes('feito')),
+            };
+
+            return res.status(200).send({ ...FilterTarefas });
         } catch (error) {
             return res.status(400).send({ message: DefaultError });
         }
