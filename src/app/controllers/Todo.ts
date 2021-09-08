@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import extend from 'extend';
 import { NotFound } from '@utils/messages/errors/Authentication';
 import { DefaultError, MissingArguments } from '@utils/messages/errors/GlobalRequest';
-import { NotContent, ErrorOnSave, DeleteInvalidId } from '@utils/messages/errors/ToDo';
+import { NotContent, ErrorOnSave, DeleteInvalidId, InvalidState } from '@utils/messages/errors/ToDo';
 import User from '@models/User';
 import Todo from '@models/ToDo';
 import IBody from '@utils/interfaces/IBody';
@@ -27,7 +27,7 @@ const TodoController = {
             }
 
             if (!['fazer', 'fazendo', 'feito'].includes(state)) {
-                return res.status(404).send({ message: 'O estado enviado é invalido' });
+                return res.status(404).send({ message: InvalidState });
             }
 
             const todo = await new Todo({
@@ -167,7 +167,7 @@ const TodoController = {
             }
 
             if (req.body.state && !['fazer', 'fazendo', 'feito'].includes(req.body.state)) {
-                return res.status(404).send({ message: 'O estado enviado é invalido' });
+                return res.status(404).send({ message: InvalidState });
             }
 
             todo = extend(todo, req.body);
