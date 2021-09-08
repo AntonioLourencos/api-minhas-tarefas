@@ -34,6 +34,10 @@ const ToDoShema: Schema<IToDo> = new Schema<IToDo>({
         min: 0,
         max: 3,
     },
+    state:{
+        type: String,
+        default: "fazer",
+    },
     startedAt: {
         type: Date,
         default: Date.now(),

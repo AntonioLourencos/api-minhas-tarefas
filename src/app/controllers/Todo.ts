@@ -13,7 +13,7 @@ import checkUUID from '@utils/helpers/checkUUID';
 const TodoController = {
     async New(req: Request, res: Response) {
         const { userID }: IQuery = req.query;
-        const { title, description, priority, startedAt, finishAt } = req.body as IBody;
+        const { title, description, priority, state, startedAt, finishAt } = req.body as IBody;
 
         if (!(userID || title)) {
             return res.status(400).send({ message: MissingArguments });
@@ -26,6 +26,10 @@ const TodoController = {
                 return res.status(404).send({ message: NotFound });
             }
 
+            if (!['fazer', 'fazendo', 'feito'].includes(state)) {
+                return res.status(404).send({ message: 'O estado enviado é invalido' });
+            }
+
             const todo = await new Todo({
                 _id: uuid(),
                 createdBy: {
@@ -34,6 +38,7 @@ const TodoController = {
                     email: user.email,
                 },
                 title,
+                state,
                 description,
                 priority,
                 startedAt,
@@ -159,6 +164,10 @@ const TodoController = {
 
             if (!todo) {
                 return res.status(404).send({ message: NotContent });
+            }
+
+            if (req.body.state && !['fazer', 'fazendo', 'feito'].includes(req.body.state)) {
+                return res.status(404).send({ message: 'O estado enviado é invalido' });
             }
 
             todo = extend(todo, req.body);

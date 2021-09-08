@@ -10,6 +10,7 @@ export default interface IToDo extends Document {
     title: string;
     description?: string;
     priority?: number;
+    state: 'fazer' | 'fazendo' | 'feito';
     startedAt?: Date;
     finishAt?: Date | string;
     createAt?: Date;

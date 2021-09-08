@@ -4,6 +4,7 @@ export default interface IBody {
     password: string;
     title: string;
     description: string;
+    state: string;
     priority: number;
     startedAt: Date;
     finishAt: Date;
