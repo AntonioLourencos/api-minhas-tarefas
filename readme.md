@@ -226,6 +226,7 @@ const RequestConfig = {
     },
     body: {
         title: 'jonDoe - Clean House', // Obrigatório
+        state: 'fazer' | 'fazendo' | 'feito' // Obrigatório
         description: '...', // Opcional
         priority: '0 ou 1 ou 2', // Opcional
         StartedAt: 'DATE', // Opcional
@@ -239,11 +240,12 @@ const RequestConfig = {
 
 {
     "todo": {
+        "title": "jonDoe - Clean House",
         "description": "Not have description yet",
+        "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
         "priority": 0,
         "StartedAt": "DATE",
         "_id": "ID",
-        "title": "jonDoe - Clean House",
         "__v": 0
     }
 }
@@ -275,14 +277,13 @@ const RequestConfig = {
 
 {
     "todo": {
-        "description": "???",
-        "priority": "???",
-        "StartedAt": "???",
         "_id": "???",
         "title": "???",
+        "description": "???",
+        "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
+        "priority": "???",
         "StartedAt": "???",
         "FinishAt": "???",
-        "__v": 0
     }
 }
 ```
@@ -308,37 +309,34 @@ const RequestConfig = {
 
 {
     "todo": [
-        {
-            "description": "???",
-            "priority": "???",
-            "StartedAt": "???",
-            "_id": "???",
-            "title": "???",
-            "StartedAt": "???",
-            "FinishAt": "???",
-            "__v": 0
-        },
-        {
-            "description": "???",
-            "priority": "???",
-            "StartedAt": "???",
-            "_id": "???",
-            "title": "???",
-            "StartedAt": "???",
-            "FinishAt": "???",
-            "__v": 0
-        },
-        {
-            "description": "???",
-            "priority": "???",
-            "StartedAt": "???",
-            "_id": "???",
-            "title": "???",
-            "StartedAt": "???",
-            "FinishAt": "???",
-            "__v": 0
-        }
-    ]
+                {
+                    "_id": "???",
+                    "title": "???",
+                    "description": "???",
+                    "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
+                    "priority": "???",
+                    "StartedAt": "???",
+                    "FinishAt": "???",
+                },
+                {
+                    "_id": "???",
+                    "title": "???",
+                    "description": "???",
+                    "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
+                    "priority": "???",
+                    "StartedAt": "???",
+                    "FinishAt": "???",
+                },
+                {
+                    "_id": "???",
+                    "title": "???",
+                    "description": "???",
+                    "state": 'fazer' | 'fazendo' | 'feito', // Obrigatório
+                    "priority": "???",
+                    "StartedAt": "???",
+                    "FinishAt": "???",
+                }
+            ]
 }
 ```
 
@@ -358,6 +356,7 @@ const RequestConfig = {
         body: {
             title: 'jonDoe - Clean House',
             description: '...',
+            state: 'fazer' | 'fazendo' | 'feito', // Obrigatório
             priority: '0 ou 1 ou 2',
             StartedAt: 'DATE',
             FinishAt: 'DATE',
@@ -371,14 +370,12 @@ const RequestConfig = {
 
 {
     "todo": {
-        "description": "???",
-        "priority": "???",
-        "StartedAt": "???",
         "_id": "???",
         "title": "???",
-        "StartedAt": "???",
+        "description": "???",
+        "priority": "???",
         "FinishAt": "???",
-        "__v": 0
+        "StartedAt": "???"
     }
 }
 ```
