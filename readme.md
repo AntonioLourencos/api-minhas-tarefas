@@ -164,16 +164,8 @@ Para a recuperação da conta, será enviado um email automático, para o usuár
 
 ```js
 // Valor de entrada
-const path = 'recoverAccount';
+const path = 'recoverAccount?email={email}';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
-
-const RequestConfig = {
-    headers: {
-        query: {
-            email: 'JohnDoe@Doe.com', // Obrigatório
-        },
-    },
-};
 ```
 
 ```
@@ -186,15 +178,10 @@ A resposta esperada é código 204 do protocolo HTTP e um email enviado para o u
 
 ```js
 // Valor de entrada
-const path = 'resetAccountPassword';
+const path = 'resetAccountPassword?token={token}';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
-    headers: {
-        query: {
-            token: 'TOKEN', // Obrigatório
-        },
-    },
     body: {
         email: 'JohnDoe@Doe.com', // Obrigatório
         password: '**********', // Obrigatório, o password pedido aqui é referente a nova senha do usuário.
@@ -214,15 +201,12 @@ Também é indicado que após isso o cliente seja redirecionado para a página d
 
 ```js
 // Valor de entrada
-const path = 'todo/new';
+const path = 'todo/new?userID={userID}';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
     headers: {
         Authorization: 'Authorization', // Obrigatório
-        query: {
-            userID: 'userID', // Obrigatório
-        },
     },
     body: {
         title: 'jonDoe - Clean House', // Obrigatório
@@ -258,16 +242,12 @@ Cada tarefa possui um identificação, nomeada na api de **"id"**
 #### Find One Method (**GET**)
 
 ```js
-const path = 'todo/findOne';
+const path = 'todo/findOne?userID={userID}&id={id}';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
     headers: {
         Authorization: 'Authorization', // Obrigatório
-        query: {
-            userID: 'userID', // Obrigatório
-            id: 'id', // Obrigatório
-        },
     },
 };
 ```
@@ -291,15 +271,12 @@ const RequestConfig = {
 #### Find Method (**GET**)
 
 ```js
-const path = 'todo/find';
+const path = 'todo/find?userID={userID}';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
     headers: {
         Authorization: 'Authorization', // Obrigatório
-        query: {
-            userID: 'userID', // Obrigatório
-        },
     },
 };
 ```
@@ -347,24 +324,20 @@ const RequestConfig = {
 ### Edit One - Method(**PUT**)
 
 ```js
-const path = 'todo/editOne';
+const path = 'todo/editOne?userID={userID}&id={id}';
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
     headers: {
         Authorization: 'Authorization', // Obrigatório
-        query: {
-            userID: 'userID', // Obrigatório
-            id: 'ID', // Obrigatório
-        },
-        body: {
-            title: 'jonDoe - Clean House',
-            description: '...',
-            state: 'fazer' | 'fazendo' | 'feito', // Obrigatório
-            priority: '0 ou 1 ou 2',
-            StartedAt: 'DATE',
-            FinishAt: 'DATE',
-        },
+    },
+    body: {
+        title: 'jonDoe - Clean House',
+        description: '...',
+        state: 'fazer' | 'fazendo' | 'feito', // Obrigatório
+        priority: '0 ou 1 ou 2',
+        StartedAt: 'DATE',
+        FinishAt: 'DATE',
     },
 };
 ```
@@ -388,22 +361,12 @@ const RequestConfig = {
 ### Delete - Method(**DELETE**)
 
 ```js
-const path = 'todo/delete';
+const path = 'todo/delete?userID={userID}&id={id}'; // Caso queria deletar mais de uma basta insirar o paramtro id mais de uma vez.
 const URL_BASE = `https://api-minhas-tarefas.herokuapp.com/api/${path}`;
 
 const RequestConfig = {
     headers: {
         Authorization: 'Authorization', // Obrigatório
-        query: {
-            userID: 'userID', // Obrigatório
-            id: 'ID', // Obrigatório
-
-            // Para deletar mais de um replique o parametro id.
-            id: 'ID', // Opcional
-            id: 'ID', // Opcional
-            id: 'ID', // Opcional
-            // ...
-        },
     },
 };
 ```
